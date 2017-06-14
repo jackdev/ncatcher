@@ -12,11 +12,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import static com.jack1i.ncatcher.NLService.INTENT_FILTER_MAIN;
+import static com.jack1i.ncatcher.NLService.INTENT_FILTER_SERVICE;
 
 public class MainActivity extends AppCompatActivity {
-
-    public static final String INTENT_FILTER_MAIN = "com.jack1i.ncatcher.NOTIFICATION_LISTENER_SERVICE";
-    public static final String INTENT_FILTER_SERVICE = "com.jack1i.ncatcher.NOTIFICATION_LISTENER_SERVICE";
 
     private TextView txtView;
     private NotificationReceiver nReceiver;

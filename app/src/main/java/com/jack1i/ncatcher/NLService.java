@@ -10,7 +10,7 @@ import android.util.Log;
 
 public class NLService extends NotificationListenerService {
 
-    public static final String INTENT_FILTER_MAIN = "com.jack1i.ncatcher.NOTIFICATION_LISTENER_SERVICE";
+    public static final String INTENT_FILTER_MAIN = "com.jack1i.ncatcher.NOTIFICATION_LISTENER_MAIN";
     public static final String INTENT_FILTER_SERVICE = "com.jack1i.ncatcher.NOTIFICATION_LISTENER_SERVICE";
 
     private String TAG = this.getClass().getSimpleName();
@@ -56,6 +56,9 @@ public class NLService extends NotificationListenerService {
 
         @Override
         public void onReceive(Context context, Intent intent) {
+
+            Log.i(TAG, "we ever entered here?");
+
             if (intent.getStringExtra("command").equals("clearall")) {
                 NLService.this.cancelAllNotifications();
             } else if (intent.getStringExtra("command").equals("list")) {
