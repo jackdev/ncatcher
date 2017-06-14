@@ -1,17 +1,17 @@
 package com.jack1i.ncatcher;
 
-import android.app.Activity;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     private TextView txtView;
     private NotificationReceiver nReceiver;
@@ -37,11 +37,11 @@ public class MainActivity extends Activity {
 
         if (v.getId() == R.id.btnCreateNotify) {
             NotificationManager nManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            NotificationCompat.Builder ncomp = new NotificationCompat.Builder(this);
+            Notification.Builder ncomp = new Notification.Builder(this);
             ncomp.setContentTitle("My Notification");
             ncomp.setContentText("Notification Listener Service Example");
             ncomp.setTicker("Notification Listener Service Example");
-//            ncomp.setSmallIcon(R.drawable.ic_launcher);
+            ncomp.setSmallIcon(android.R.drawable.sym_def_app_icon);
             ncomp.setAutoCancel(true);
             nManager.notify((int) System.currentTimeMillis(), ncomp.build());
         } else if (v.getId() == R.id.btnClearNotify) {
