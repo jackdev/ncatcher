@@ -10,6 +10,9 @@ import android.util.Log;
 
 public class NLService extends NotificationListenerService {
 
+    public static final String INTENT_FILTER_MAIN = "com.jack1i.ncatcher.NOTIFICATION_LISTENER_SERVICE";
+    public static final String INTENT_FILTER_SERVICE = "com.jack1i.ncatcher.NOTIFICATION_LISTENER_SERVICE";
+
     private String TAG = this.getClass().getSimpleName();
     private NLServiceReceiver nlservicereciver;
 
@@ -18,7 +21,7 @@ public class NLService extends NotificationListenerService {
         super.onCreate();
         nlservicereciver = new NLServiceReceiver();
         IntentFilter filter = new IntentFilter();
-        filter.addAction("com.kpbird.nlsexample.NOTIFICATION_LISTENER_SERVICE_EXAMPLE");
+        filter.addAction(INTENT_FILTER_SERVICE);
         registerReceiver(nlservicereciver, filter);
     }
 
@@ -33,7 +36,7 @@ public class NLService extends NotificationListenerService {
 
         Log.i(TAG, "**********  onNotificationPosted");
         Log.i(TAG, "ID :" + sbn.getId() + "t" + sbn.getNotification().tickerText + "t" + sbn.getPackageName());
-        Intent i = new Intent("com.kpbird.nlsexample.NOTIFICATION_LISTENER_EXAMPLE");
+        Intent i = new Intent(INTENT_FILTER_MAIN);
         i.putExtra("notification_event", "onNotificationPosted :" + sbn.getPackageName() + "n");
         sendBroadcast(i);
 
@@ -43,7 +46,7 @@ public class NLService extends NotificationListenerService {
     public void onNotificationRemoved(StatusBarNotification sbn) {
         Log.i(TAG, "********** onNOtificationRemoved");
         Log.i(TAG, "ID :" + sbn.getId() + "t" + sbn.getNotification().tickerText + "t" + sbn.getPackageName());
-        Intent i = new Intent("com.kpbird.nlsexample.NOTIFICATION_LISTENER_EXAMPLE");
+        Intent i = new Intent(INTENT_FILTER_MAIN);
         i.putExtra("notification_event", "onNotificationRemoved :" + sbn.getPackageName() + "n");
 
         sendBroadcast(i);
@@ -56,23 +59,22 @@ public class NLService extends NotificationListenerService {
             if (intent.getStringExtra("command").equals("clearall")) {
                 NLService.this.cancelAllNotifications();
             } else if (intent.getStringExtra("command").equals("list")) {
-                Intent i1 = new Intent("com.kpbird.nlsexample.NOTIFICATION_LISTENER_EXAMPLE");
+                Intent i1 = new Intent(INTENT_FILTER_MAIN);
                 i1.putExtra("notification_event", "=====================");
                 sendBroadcast(i1);
                 int i = 1;
                 for (StatusBarNotification sbn : NLService.this.getActiveNotifications()) {
-                    Intent i2 = new Intent("com.kpbird.nlsexample.NOTIFICATION_LISTENER_EXAMPLE");
+                    Intent i2 = new Intent(INTENT_FILTER_MAIN);
                     i2.putExtra("notification_event", i + " " + sbn.getPackageName() + "n");
                     sendBroadcast(i2);
                     i++;
                 }
-                Intent i3 = new Intent("com.kpbird.nlsexample.NOTIFICATION_LISTENER_EXAMPLE");
+                Intent i3 = new Intent(INTENT_FILTER_MAIN);
                 i3.putExtra("notification_event", "===== Notification List ====");
                 sendBroadcast(i3);
-
             }
-
         }
+
     }
 
 }

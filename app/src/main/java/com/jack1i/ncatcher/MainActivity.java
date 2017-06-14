@@ -8,10 +8,15 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+
 public class MainActivity extends AppCompatActivity {
+
+    public static final String INTENT_FILTER_MAIN = "com.jack1i.ncatcher.NOTIFICATION_LISTENER_SERVICE";
+    public static final String INTENT_FILTER_SERVICE = "com.jack1i.ncatcher.NOTIFICATION_LISTENER_SERVICE";
 
     private TextView txtView;
     private NotificationReceiver nReceiver;
@@ -23,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
         txtView = (TextView) findViewById(R.id.textView);
         nReceiver = new NotificationReceiver();
         IntentFilter filter = new IntentFilter();
-        filter.addAction("com.kpbird.nlsexample.NOTIFICATION_LISTENER_EXAMPLE");
-        registerReceiver(nReceiver, filter);
+        filter.addAction(INTENT_FILTER_MAIN);
+        registerReceiver(nReceiver,filter);
     }
 
     @Override
@@ -45,12 +50,14 @@ public class MainActivity extends AppCompatActivity {
             ncomp.setAutoCancel(true);
             nManager.notify((int) System.currentTimeMillis(), ncomp.build());
         } else if (v.getId() == R.id.btnClearNotify) {
-            Intent i = new Intent("com.kpbird.nlsexample.NOTIFICATION_LISTENER_SERVICE_EXAMPLE");
-            i.putExtra("command", "clearall");
+            Log.i(this.getClass().getSimpleName(), "R.id.btnClearNotify");
+            Intent i = new Intent(INTENT_FILTER_SERVICE);
+            i.putExtra("command","clearall");
             sendBroadcast(i);
         } else if (v.getId() == R.id.btnListNotify) {
-            Intent i = new Intent("com.kpbird.nlsexample.NOTIFICATION_LISTENER_SERVICE_EXAMPLE");
-            i.putExtra("command", "list");
+            Log.i(this.getClass().getSimpleName(), "R.id.btnListNotify");
+            Intent i = new Intent(INTENT_FILTER_SERVICE);
+            i.putExtra("command","list");
             sendBroadcast(i);
         }
 
@@ -60,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            Log.i(this.getClass().getSimpleName(), "NotificationReceiver.onReceive");
             String temp = intent.getStringExtra("notification_event") + "n" + txtView.getText();
             txtView.setText(temp);
         }

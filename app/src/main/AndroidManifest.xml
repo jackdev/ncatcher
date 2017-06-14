@@ -18,7 +18,7 @@
         </activity>
 
         <service
-            android:name="com.jack1i.NLService"
+            android:name="com.jack1i.ncatcher.NLService"
             android:label="@string/app_name"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
